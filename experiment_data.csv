@@ -1,5 +1,5 @@
-experiment1,1,6/23/2000,exper1,Comment
-experiment1,2,6/24/2000,exper2,This one did not work
-experiment1,3,6/25/2020,exper3,This one did finally
-experiment2,4,9/25/2020,exper4,We got funding now
-experiment3,5,9/26/2020,exper5,We ran out of money
+experiment1,1,6/23/2000,exper1.txt,Comment
+experiment1,2,6/24/2000,exper2.txt,This one did not work
+experiment1,3,6/25/2020,exper3.txt,This one did finally
+experiment2,4,9/25/2020,exper4.txt,We got funding now
+experiment3,5,9/26/2020,exper5.txt,We ran out of money
