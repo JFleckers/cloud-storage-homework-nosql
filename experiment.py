@@ -21,8 +21,9 @@ try:
 except:
     print("This may already exist")
 
-bucket = s3.Bucket("my-experiment-bucket")
-#bucket.Acl().put(ACL="public-read")
+# it looks like buckets are already made public when created?
+bucket = s3.Bucket("fleckenstein-my-experiment-bucket")
+bucket.Acl().put(ACL="public-read")
 
 # grab the dynamo resource
 dyndb = boto3.resource("dynamodb", region_name="us-west-2", aws_access_key_id=access_key_id,
@@ -57,7 +58,7 @@ table = dyndb.create_table(
     }
 )
 
-# make sure the table is done being created before we contiune
+# make sure the table is done being created before we continue
 table.meta.client.get_waiter("table_exists").wait(TableName="ExperimentTable")
 print(table.item_count)
 
@@ -70,8 +71,10 @@ with open("experiment_data.csv", "r") as file:
     # insert all csv data into the table
     for i in c:
         with open(i[3], "rb") as exp:
+            # place the experiment data in th bucket
             s3.Object("fleckenstein-my-experiment-bucket", i[3]).put(Body=exp)
             s3.Object("fleckenstein-my-experiment-bucket", i[3]).Acl().put(ACL="public-read")
+            # add its corresponding data to the table
             insert = {
                 'PartitionKey': i[0],
                 'RowKey': i[1],
